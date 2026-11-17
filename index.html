@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>SMART CAMPUS IoT | Documentación técnica · Equipo G4</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/><style>
+:root{--bg:#050505;--surface:#0b0b0b;--surface2:#11100e;--surface3:#191612;--line:rgba(217,173,82,.16);--text:#f4f6fa;--muted:#929eae;--gold:#d9ad52;--gold2:#f1ca78;--goldwash:rgba(217,173,82,.11);--green:#61c6a0;--side:292px;--ease:cubic-bezier(.2,.75,.25,1)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scrollbar-width:none}html::-webkit-scrollbar,body::-webkit-scrollbar,.nav::-webkit-scrollbar{display:none;width:0;height:0}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.8 Inter,system-ui,sans-serif;scrollbar-width:none}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 75% -10%,rgba(217,173,82,.13),transparent 39%),radial-gradient(ellipse at 0% 75%,rgba(217,173,82,.035),transparent 36%),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,auto,48px 48px,48px 48px}
+button{font:inherit}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--side);background:linear-gradient(180deg,rgba(12,11,9,.99),rgba(5,5,5,.99));border-right:1px solid var(--line);z-index:20;display:flex;flex-direction:column;transition:width .32s var(--ease);backdrop-filter:blur(22px)}
+.brand{min-height:88px;padding:20px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px}.brand-line{display:flex;align-items:center;gap:11px;min-width:0;font:700 12px Sora;letter-spacing:.055em;white-space:nowrap}.brand b{width:39px;height:39px;flex:0 0 39px;display:grid;place-items:center;border:1px solid rgba(217,173,82,.55);border-radius:12px;color:var(--gold2);background:linear-gradient(145deg,rgba(217,173,82,.17),rgba(217,173,82,.035));box-shadow:0 0 24px rgba(217,173,82,.08);font:800 14px Sora}.brand small{display:block;color:#788597;font:9px Inter;letter-spacing:.19em;margin-top:5px}.fold{width:29px;height:29px;border:1px solid var(--line);border-radius:8px;background:#ffffff05;color:#aeb8c6;cursor:pointer;transition:.2s}.fold:hover{border-color:#d9ad5266;color:var(--gold2)}
+.nav{overflow:auto;scrollbar-width:none;padding:15px 12px 20px;flex:1}.group{margin:0 0 7px;border-radius:11px;overflow:hidden}.group-toggle{width:100%;display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid transparent;border-radius:10px;background:transparent;color:#aeb8c6;text-align:left;cursor:pointer;font:600 11px Sora;letter-spacing:.055em;transition:background .2s,color .2s,border .2s}.group-toggle:hover{background:#ffffff07;color:#fff}.group.open>.group-toggle{color:var(--gold2);background:var(--goldwash);border-color:rgba(217,173,82,.14)}.group-icon{width:18px;text-align:center;color:var(--gold);font-size:15px}.chev{margin-left:auto;color:#788597;transition:transform .25s}.group.open .chev{transform:rotate(180deg);color:var(--gold)}.group-links{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s var(--ease)}.group.open .group-links{grid-template-rows:1fr}.group-links>div{overflow:hidden}.group-links{overflow:hidden}.group-links button{width:calc(100% - 9px);margin:2px 0 2px 9px;display:flex;align-items:center;gap:11px;padding:8px 10px;border:0;border-radius:8px;background:transparent;color:#aeb8c6;text-align:left;cursor:pointer;font:11px Inter;transition:.2s}.group-links button:hover{background:#ffffff08;color:#fff;transform:translateX(2px)}.group-links button.active{background:linear-gradient(90deg,rgba(217,173,82,.16),rgba(217,173,82,.035));color:#fff;box-shadow:inset 2px 0 var(--gold)}.num{width:18px;color:#7e8a9b;font:10px Sora}.group-links button.active .num{color:var(--gold2)}.sidefoot{padding:15px 20px;border-top:1px solid var(--line);color:#697687;font-size:9px;line-height:1.8;letter-spacing:.08em}
+.main{margin-left:var(--side);min-height:100vh;transition:margin-left .32s var(--ease)}header{height:70px;position:sticky;top:0;z-index:10;background:rgba(7,9,13,.79);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(22px,4vw,58px);color:#7f8b9b;font-size:10px;letter-spacing:.11em}header b{color:#dce1e8;font-weight:600}.head-right{display:flex;align-items:center;gap:10px;color:#8995a5}.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px #61c6a0}.menu{display:none;background:#17130d;color:white;border:1px solid var(--line);padding:7px 10px;border-radius:8px}.wrap{max-width:1200px;margin:auto;padding:clamp(34px,5vw,72px) clamp(22px,5vw,76px) 28px}.page{display:none;min-height:calc(100vh - 140px);animation:appear .42s var(--ease)}.page.active{display:block}@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.eyebrow,.chapter{display:flex;align-items:center;gap:10px;color:var(--gold2);font:700 10px Sora;letter-spacing:.2em;text-transform:uppercase}.eyebrow:before{content:"";width:25px;height:1px;background:var(--gold)}.hero{min-height:74vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:28px 0 54px}.hero:after{content:"G4";position:absolute;right:1%;top:13%;font:800 clamp(150px,26vw,330px)/1 Sora;letter-spacing:-.1em;color:rgba(255,255,255,.018);pointer-events:none;z-index:-1}.hero h1{font:800 clamp(46px,7.4vw,88px)/1.02 Sora;margin:24px 0;letter-spacing:-.075em}.hero h1 span{background:linear-gradient(105deg,#f7d990 0%,#c5963f 52%,#f4d48e 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.lead{max-width:740px;color:#aeb8c6;font-size:16px;line-height:1.9}.tags{display:flex;gap:9px;flex-wrap:wrap;margin:25px 0 30px}.tag{padding:7px 12px;border:1px solid var(--line);border-radius:30px;color:#aeb8c6;font-size:9px;letter-spacing:.12em;background:#ffffff03}.tag.gold{color:var(--gold2);border-color:#d9ad5255;background:var(--goldwash)}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{background:linear-gradient(145deg,#1b1710,#100e0a);border:1px solid var(--line);border-radius:9px;padding:12px 17px;color:#e9edf2;cursor:pointer;font-weight:600;font-size:11px;letter-spacing:.04em;transition:transform .2s,border .2s,box-shadow .2s}.btn.gold{background:linear-gradient(110deg,#f0ce83,#c99a43);border-color:#e6c176;color:#17130b;box-shadow:0 8px 25px #c99a4325}.btn:hover{transform:translateY(-2px);border-color:#d9ad5280;box-shadow:0 8px 24px #0005}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,190px));gap:12px;margin-top:46px}.stat{border:1px solid var(--line);border-radius:13px;padding:16px 18px;background:linear-gradient(145deg,#ffffff09,#ffffff02);position:relative;overflow:hidden}.stat:before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:linear-gradient(var(--gold),transparent)}.stat strong{display:block;color:var(--gold2);font:700 18px Sora}.stat small{color:#8491a2;font-size:9px;letter-spacing:.08em;text-transform:uppercase}.hero-rule{width:100%;height:1px;background:linear-gradient(90deg,#d9ad5266,transparent);margin-top:46px}
+.chapter{padding-bottom:17px;border-bottom:1px solid var(--line)}h2{font:700 clamp(30px,4.2vw,46px)/1.18 Sora;letter-spacing:-.055em;margin:15px 0 16px}h3{font:600 17px Sora;margin:0 0 9px}.desc{color:#8f9bad;max-width:790px;font-size:14px}.prose{max-width:920px;color:#b8c1cd;font-size:14px;line-height:2;margin-top:30px}.prose strong{color:#f2f4f7;font-weight:600}.prose br+br{content:"";display:block;margin-top:13px}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:930px;margin-top:31px}.card{border:1px solid var(--line);border-radius:15px;padding:22px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));transition:transform .22s,border .22s}.card:hover{transform:translateY(-3px);border-color:#d9ad524d}.card h3{color:#f0f2f5}.card p{color:#8f9bad;font-size:12px;margin:0}.card .ey{color:var(--gold);font:700 9px Sora;letter-spacing:.16em;margin-bottom:12px}.notice{margin-top:24px;padding:16px 19px;border:1px solid #d9ad5226;border-left:2px solid var(--gold);background:linear-gradient(90deg,#d9ad520d,transparent);color:#aeb8c6;font-size:12px;border-radius:0 10px 10px 0}.placeholder{margin-top:22px;padding:16px 18px;border:1px dashed #d9ad5255;border-radius:11px;color:#b9c2ce;background:#d9ad5208;font-size:11px}.placeholder b{color:var(--gold2)}.pager{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:20px;margin-top:50px}.pager button{text-align:left;max-width:48%}.pager button:last-child{text-align:right}.pager small{display:block;color:#7f8b9b;font-size:9px;letter-spacing:.13em;margin-bottom:4px}.pager b{font-size:11px}.pager button:disabled{opacity:.3;cursor:default}.foot{border-top:1px solid var(--line);padding:20px 0;color:#687587;font-size:9px;letter-spacing:.1em;display:flex;justify-content:space-between;gap:10px;margin-top:26px}
+/* El menú se pliega por completo: el botón flotante permite recuperarlo. */
+.group-links{display:block;max-height:0;opacity:0;overflow:hidden;transition:max-height .28s var(--ease),opacity .2s ease}
+.group.open .group-links{max-height:520px;opacity:1}
+body.sidebar-collapsed{--side:0px}
+body.sidebar-collapsed .sidebar{width:0;min-width:0;overflow:hidden;border:0;transform:translateX(-100%);visibility:hidden}
+body.sidebar-collapsed .sidebar-reopen{display:grid;place-items:center}
+body.sidebar-collapsed .main{margin-left:0}
+.sidebar-reopen{display:none;position:fixed;top:17px;left:17px;z-index:30;width:39px;height:39px;border:1px solid #d9ad5266;border-radius:11px;background:rgba(15,20,28,.96);color:var(--gold2);font-size:17px;cursor:pointer;box-shadow:0 8px 28px #0008;backdrop-filter:blur(12px)}
+body.sidebar-collapsed .sidebar-reopen{display:grid;place-items:center}
+.nav-search{position:sticky;top:0;z-index:4;display:flex;align-items:center;gap:7px;padding:8px;margin:0 0 12px;background:#0b0b0b;border:1px solid var(--line);border-radius:10px}
+.nav-search input{width:100%;min-width:0;background:transparent;border:0;outline:0;color:var(--text);font:11px Inter}
+.nav-search input::placeholder{color:#718094}.nav-search span{flex:none;color:#778395;font:9px Inter;border:1px solid var(--line);border-radius:5px;padding:2px 5px}
+.search-empty{padding:12px;color:var(--muted);font-size:11px}
+.read-progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:80;box-shadow:0 0 10px #d9ad5288;transition:width .15s}
+@media(max-width:850px){.sidebar{transform:translateX(-100%);transition:transform .28s var(--ease);width:285px}body.sidebar-collapsed .sidebar{width:285px;transform:translateX(-100%)}body.sidebar-collapsed .main{margin-left:0}body.sidebar-collapsed .sidebar-reopen{display:grid;place-items:center}.sidebar.mobile-open{transform:translateX(0);box-shadow:25px 0 70px #000b}.main{margin:0}.menu{display:block}header{padding:0 18px}.wrap{padding:34px 22px}.head-right{display:none}}
+@media(max-width:560px){.stats{grid-template-columns:1fr;max-width:100%}.cards{grid-template-columns:1fr}.hero{min-height:70vh}.hero h1{font-size:clamp(43px,13vw,68px)}.lead{font-size:14px}.foot{display:block}.foot span{display:block;margin:5px 0}}
+
+/* Premium engineering content modules */
+.pdf-btn{padding:7px 11px;margin-left:8px;font-size:9px}
+.feature-kicker{font:700 9px Sora;letter-spacing:.17em;color:var(--gold2);text-transform:uppercase}
+.sensor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:28px 0}
+.sensor-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:15px;padding:19px;background:linear-gradient(145deg,#ffffff0a,#ffffff02);transition:.25s}
+.sensor-card:hover{transform:translateY(-4px);border-color:#d9ad5266;box-shadow:0 15px 35px #0005}
+.sensor-card:after{content:"";position:absolute;width:110px;height:110px;border-radius:50%;right:-55px;top:-60px;background:#d9ad5210;filter:blur(5px)}
+.sensor-symbol{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;border:1px solid #d9ad5244;background:#d9ad520e;color:var(--gold2);font:700 12px Sora;margin-bottom:15px}
+.sensor-card h3{font-size:14px}.sensor-card p{font-size:11px;color:#8f9bad;margin:5px 0}.sensor-meta{font-size:9px;color:var(--gold2);letter-spacing:.08em;margin-top:13px}
+.arch-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:30px 0;align-items:stretch}
+.arch-node{position:relative;min-height:125px;padding:17px 12px;border:1px solid #d9ad5233;border-radius:13px;background:linear-gradient(150deg,#d9ad5210,#ffffff03);text-align:center;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.arch-node:not(:last-child):after{content:"›";position:absolute;right:-11px;top:42%;z-index:2;color:var(--gold);font:26px Sora}
+.arch-node b{font:600 12px Sora}.arch-node small{font-size:9px;color:#8f9bad}.arch-node .arch-icon{font-size:21px;color:var(--gold2)}
+.topic-list{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.topic{padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#ffffff04;color:#bac3cf;font:10px ui-monospace,monospace}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:26px 0}.gallery-slot{min-height:190px;border:1px dashed #d9ad5266;border-radius:15px;background:linear-gradient(145deg,#d9ad520c,#ffffff02);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;color:#9ba6b5}.gallery-slot .plus{font:300 35px Sora;color:var(--gold);margin-bottom:8px}.gallery-slot b{font:600 12px Sora;color:#e8ebef}.gallery-slot small{font-size:10px;margin-top:6px;max-width:230px}
+.timeline{margin:28px 0;border-left:1px solid #d9ad5266;padding-left:22px;display:grid;gap:18px}.milestone{position:relative;padding:15px 17px;border:1px solid var(--line);border-radius:12px;background:#ffffff04}.milestone:before{content:"";position:absolute;left:-28px;top:21px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px #d9ad5277}.milestone time{font:700 9px Sora;color:var(--gold2);letter-spacing:.1em}.milestone b{display:block;font:600 13px Sora;margin:5px 0}.milestone p{margin:0;color:#8f9bad;font-size:11px}
+.dashboard-preview{border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,#141b26,#0d121a);padding:20px;margin:25px 0;box-shadow:0 22px 55px #0005}.dash-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:16px}.dash-title{font:600 12px Sora}.dash-pill{font-size:9px;color:var(--green);border:1px solid #61c6a044;border-radius:30px;padding:5px 9px}.dash-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.dash-metric{padding:13px;border:1px solid var(--line);border-radius:10px;background:#ffffff04}.dash-metric small{display:block;color:#8995a5;font-size:9px}.dash-metric b{display:block;font:600 17px Sora;color:var(--gold2);margin-top:6px}
+.glossary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:25px}.glossary-item{padding:14px 16px;border:1px solid var(--line);border-radius:11px;background:#ffffff04}.glossary-item b{font:600 11px Sora;color:var(--gold2)}.glossary-item p{font-size:11px;color:#a7b1bf;margin:5px 0 0}
+@media(max-width:900px){.sensor-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.arch-flow{grid-template-columns:1fr}.arch-node:not(:last-child):after{content:"⌄";right:48%;top:auto;bottom:-18px}.dash-metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.sensor-grid,.gallery-grid,.glossary{grid-template-columns:1fr}.head-right{display:none!important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media print{.sidebar,header,.pager,.foot,.notice,.sidebar-reopen{display:none!important}.main{margin:0!important}.page{display:block!important;min-height:0;page-break-after:always;animation:none!important}.wrap{max-width:none;padding:0 12mm}.hero{min-height:0;padding:20mm 0}.prose{color:#222}.desc,.prose,.card p,.sensor-card p{color:#333}.card,.sensor-card,.milestone,.glossary-item{break-inside:avoid;border-color:#bbb;background:#fff}.chapter,.feature-kicker{color:#8a651d}}
+</style><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Sora:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><style>
+/* DASHBOARD G4 VISUAL SYSTEM — adaptación de identidad visual */
+:root{
+ --bg:#050505;--surface:rgba(17,17,17,.72);--surface2:#111;
+ --surface3:#1a1a1a;--gold:#FFC500;--gold2:#ffd84d;
+ --gold-glow:rgba(255,197,0,.25);--line:rgba(255,255,255,.08);
+ --line-hover:rgba(255,255,255,.16);--text:#f5f5f5;
+ --muted:#94a3b8;--muted2:#64748b;--green:#10b981;
+ --red:#ef4444;--blue:#3b82f6;--orange:#f97316;
+ --side:292px;--radius:16px;--ease:cubic-bezier(.4,0,.2,1);
+ --font-body:'Inter',sans-serif;--font-heading:'Sora',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{
+ background-color:var(--bg)!important;color:var(--text)!important;
+ font-family:var(--font-body)!important;line-height:1.7;
+ background-image:
+ radial-gradient(circle at 50% 10%,rgba(255,197,0,.075) 0%,transparent 60%),
+ linear-gradient(var(--line) 1px,transparent 1px),
+ linear-gradient(90deg,var(--line) 1px,transparent 1px)!important;
+ background-size:100% 100%,40px 40px,40px 40px!important;
+ background-position:top center,center center,center center!important;
+}
+body:before{background:
+ radial-gradient(ellipse at 50% 0%,rgba(255,197,0,.065),transparent 55%),
+ linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px)!important;
+ background-size:auto,40px 40px,40px 40px!important}
+h1,h2,h3,h4,.brand-line,.group-toggle,.ey,.num,.chapter-kicker{
+ font-family:var(--font-heading)!important
+}
+.sidebar{
+ background:linear-gradient(180deg,rgba(12,12,12,.98),rgba(5,5,5,.99))!important;
+ border-right:1px solid rgba(255,197,0,.17)!important;
+ box-shadow:12px 0 45px rgba(0,0,0,.22);
+ backdrop-filter:blur(22px)
+}
+.brand{border-bottom:1px solid rgba(255,197,0,.17)!important}
+.brand b{
+ border:1px solid rgba(255,197,0,.58)!important;color:var(--gold)!important;
+ background:linear-gradient(145deg,rgba(255,197,0,.17),rgba(255,197,0,.035))!important;
+ box-shadow:0 0 26px rgba(255,197,0,.11)!important
+}
+.brand small{letter-spacing:.19em!important}
+.group-toggle{font-size:11px!important;letter-spacing:.055em}
+.group.open>.group-toggle{color:#ffe28a!important;background:rgba(255,197,0,.09)!important;border-color:rgba(255,197,0,.16)!important}
+.group-icon,.group-links button.active .num{color:var(--gold)!important}
+.group-links button.active{background:linear-gradient(90deg,rgba(255,197,0,.16),rgba(255,197,0,.035))!important;box-shadow:inset 2px 0 var(--gold)!important}
+.group-links button:hover{background:rgba(255,255,255,.045)!important}
+.sidefoot{border-top:1px solid rgba(255,197,0,.16)!important}
+header{
+ background:rgba(7,7,7,.82)!important;backdrop-filter:blur(20px)!important;
+ border-bottom:1px solid rgba(255,197,0,.16)!important;
+}
+header b{color:#f5f5f5!important}
+.wrap{max-width:1240px!important}
+main .page,main section,.content-page{animation:pageEnter .48s var(--ease) both}
+@keyframes pageEnter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+h1{letter-spacing:-.045em!important}
+h2{letter-spacing:-.035em!important}
+h2:after,.section-title:after{background:linear-gradient(90deg,var(--gold),transparent)!important}
+p,.prose{color:#c4cbd5}
+a{transition:color .22s ease,border-color .22s ease}
+a:hover{color:var(--gold2)}
+button,.btn,.nav-button{
+ transition:all .25s var(--ease)!important
+}
+.btn,button.primary,.primary{
+ background:linear-gradient(135deg,#ffd43b,#e9a900)!important;
+ color:#090909!important;border:1px solid rgba(255,220,100,.55)!important;
+ box-shadow:0 7px 24px rgba(255,197,0,.14)!important;
+ font-weight:800!important
+}
+.btn:hover,button.primary:hover,.primary:hover{
+ transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,197,0,.24)!important
+}
+.card,.panel,.stat-card,.callout,.content-card,.table-wrap,.diagram,.media-card{
+ background:linear-gradient(145deg,rgba(24,24,24,.88),rgba(12,12,12,.92))!important;
+ border:1px solid var(--line)!important;border-radius:var(--radius)!important;
+ box-shadow:0 12px 35px rgba(0,0,0,.18)!important;
+ transition:transform .25s var(--ease),border-color .25s,box-shadow .25s
+}
+.card:hover,.panel:hover,.stat-card:hover,.content-card:hover,.media-card:hover{
+ border-color:rgba(255,197,0,.28)!important;
+ box-shadow:0 16px 38px rgba(0,0,0,.28),0 0 25px rgba(255,197,0,.035)!important;
+ transform:translateY(-2px)
+}
+.card h3,.panel h3,.content-card h3{color:#fff}
+.ey,.kicker,.chapter-kicker,.eyebrow{
+ color:var(--gold)!important;letter-spacing:.16em!important;font-weight:800!important
+}
+.badge,.tag,.pill{
+ border:1px solid rgba(255,197,0,.22)!important;
+ background:rgba(255,197,0,.075)!important;color:#ffdc70!important
+}
+table{border-collapse:separate!important;border-spacing:0!important}
+th{background:rgba(255,197,0,.09)!important;color:#ffdc70!important}
+td,th{border-color:rgba(255,255,255,.075)!important}
+tr:hover td{background:rgba(255,197,0,.035)!important}
+input,textarea,select{
+ background:#101010!important;color:#f5f5f5!important;
+ border:1px solid rgba(255,255,255,.12)!important;border-radius:10px!important
+}
+input:focus,textarea:focus,select:focus{outline:1px solid rgba(255,197,0,.55)!important}
+.read-progress{background:linear-gradient(90deg,#e7a900,#ffd84d)!important;box-shadow:0 0 12px rgba(255,197,0,.35)}
+.divider,hr{border-color:rgba(255,197,0,.14)!important}
+footer{border-top:1px solid rgba(255,197,0,.15)!important}
+::selection{background:rgba(255,197,0,.3);color:#fff}
+@media(max-width:760px){
+ :root{--side:280px}
+ header{padding-inline:18px!important}
+ .wrap{padding-inline:18px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style><style>
+.project-photo-gallery{margin:34px 0 12px;padding:26px;border:1px solid rgba(255,197,0,.22);border-radius:18px;background:linear-gradient(145deg,rgba(255,197,0,.055),rgba(255,255,255,.018))}
+.project-photo-gallery .section-kicker{font-size:.72rem;letter-spacing:.18em;font-weight:800;color:#ffc500;margin-bottom:8px}
+.project-photo-gallery h3{font-family:Sora,Inter,sans-serif;color:#fff;margin:0 0 8px}
+.project-photo-gallery p{color:#aaa;max-width:780px;line-height:1.65}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:20px}
+.project-photo{margin:0;overflow:hidden;border-radius:13px;border:1px solid rgba(255,255,255,.1);background:#101010}
+.project-photo a{display:block;aspect-ratio:4/3;overflow:hidden}
+.project-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.project-photo:hover img{transform:scale(1.045)}
+.project-photo figcaption{padding:10px 12px;color:#c8c8c8;font-size:.82rem}
+@media(max-width:600px){.project-photo-gallery{padding:17px}.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}}
+</style></head><body><div aria-hidden="true" class="read-progress" id="readProgress"></div><aside class="sidebar" id="sidebar"><div class="brand"><div class="brand-line"><b>G4</b><div>SMART CAMPUS IoT<small>DOCUMENTACIÓN TÉCNICA</small></div></div><button aria-label="Plegar menú" class="fold" id="fold" title="Plegar menú">‹</button></div><nav class="nav" id="nav">
+<div class="group"><button aria-expanded="false" class="group-toggle"><span class="group-icon">⌂</span><span>INICIO</span><span class="chev">⌄</span></button><div class="group-links"><button class="active" data-id="portada"><span class="num">—</span>Portada</button><button data-id="proyecto"><span class="num">—</span>Ver el proyecto</button></div></div>
+<div class="group"><button aria-expanded="false" class="group-toggle"><span class="group-icon">◈</span><span>1 · PRESENTACIÓN</span><span class="chev">⌄</span></button><div class="group-links"><button data-id="cambios"><span class="num">1</span>Control de cambios</button><button data-id="objetivo"><span class="num">2</span>Objetivo y visión general</button><button data-id="problema"><span class="num">3</span>Problema a resolver</button><button data-id="alcances"><span class="num">4</span>Alcances</button><button data-id="equipo"><span class="num">5</span>Equipo e integrantes</button><button data-id="asignaturas"><span class="num">6</span>Asignaturas involucradas</button></div></div>
+<div class="group"><button aria-expanded="false" class="group-toggle"><span class="group-icon">▤</span><span>2 · PLANIFICACIÓN</span><span class="chev">⌄</span></button><div class="group-links"><button data-id="scrum"><span class="num">7</span>Planificación y Scrum</button><button data-id="gantt"><span class="num">8</span>Carta Gantt</button><button data-id="hitos"><span class="num">9</span>Entregables e hitos</button></div></div>
+<div class="group"><button aria-expanded="false" class="group-toggle"><span class="group-icon">⌘</span><span>3 · DISEÑO TÉCNICO</span><span class="chev">⌄</span></button><div class="group-links"><button data-id="arquitectura"><span class="num">10</span>Arquitectura del sistema</button><button data-id="plano"><span class="num">11</span>Plano de diseño</button><button data-id="componentes"><span class="num">12</span>Componentes</button><button data-id="aplicacion"><span class="num">13</span>Diseño de la aplicación</button></div></div>
+<div class="group"><button aria-expanded="false" class="group-toggle"><span class="group-icon">◷</span><span>4 · SEGUIMIENTO</span><span class="chev">⌄</span></button><div class="group-links"><button data-id="presupuesto"><span class="num">14</span>Presupuesto y BOM</button><button data-id="pruebas"><span class="num">15</span>Bitácora de pruebas</button><button data-id="resultados"><span class="num">16</span>Resultados y mejoras</button></div></div>
+<div class="group"><button aria-expanded="false" class="group-toggle"><span class="group-icon">▣</span><span>GUÍA DE USO</span><span class="chev">⌄</span></button><div class="group-links"><button data-id="ayuda"><span class="num">17</span>Cómo usar esta documentación</button></div></div>
+</nav><div class="sidefoot">INSTITUTO LEONARDO MURIALDO · 2026<br/>6.º INFORMÁTICA A · GRUPO G4</div></aside>
+<main class="main"><header><button class="menu" id="menu">☰</button><span>PROYECTO FINAL / <b id="crumb">PORTADA</b></span><span class="head-right"><i class="live-dot"></i> DOCUMENTACIÓN TÉCNICA <b>· G4 / 2026</b> <button class="btn pdf-btn" id="pdfBtn">↓ PDF</button></span></header><div class="wrap">
+<section class="page active" id="portada"><h2>SMART CAMPUS IoT.</h2><p class="desc">NODO · INSTITUTO LEONARDO MURIALDO · 6.º INFORMÁTICA A · 2026</p>
+<div class="prose">Documentación técnica del desarrollo de un nodo IoT para monitorear variables ambientales en aulas y transmitirlas mediante Wi-Fi y MQTT.</div>
+<div class="cards"><div class="card"><div class="ey">EL PROYECTO</div><h3>Un nodo. Múltiples variables.</h3><p>Temperatura, humedad, iluminación, ruido, gases y presencia, con cálculo local del índice de confort.</p></div><div class="card"><div class="ey">EL EQUIPO</div><h3>Equipo G4</h3><p>Instituto Leonardo Murialdo · 6.º año Informática A · 2026.</p></div></div>
+</section>
+<section class="page" id="proyecto"><div class="chapter">VISTA GENERAL</div><h2>El proyecto</h2><p class="desc">Una primera aproximación al sistema desarrollado por el Equipo G4.</p><div class="prose">El Equipo G4 forma parte de una propuesta de monitoreo ambiental para el entorno escolar. El dispositivo integra sensores conectados a un ESP32-C3 y transmite las mediciones a través de una red Wi-Fi utilizando el protocolo MQTT. Los datos se reciben en un dashboard web, donde pueden consultarse en tiempo real.<br/><br/>El sistema contempla variables de temperatura, humedad, iluminación, ruido, gases y presencia. A partir de las variables ambientales, el firmware también publica un indicador general de confort.</div><div class="cards"><div class="card"><div class="ey">CAPTURA</div><h3>Sensores ambientales</h3><p>Los módulos instalados registran distintas condiciones del espacio.</p></div><div class="card"><div class="ey">PROCESAMIENTO</div><h3>ESP32-C3</h3><p>El microcontrolador obtiene las lecturas y prepara los datos.</p></div><div class="card"><div class="ey">COMUNICACIÓN</div><h3>Wi-Fi + MQTT</h3><p>Las mediciones se envían al broker MQTT del servidor escolar.</p></div><div class="card"><div class="ey">VISUALIZACIÓN</div><h3>Dashboard web</h3><p>La interfaz permite consultar las mediciones y su evolución.</p></div></div></section>
+<section class="page" id="cambios"><div class="chapter">01 / DOCUMENTACIÓN TÉCNICA</div><h2>Control de cambios</h2><p class="desc">Registro de versiones, fechas, modificaciones y responsables.</p><div class="prose">La tabla de control de cambios permitirá identificar las versiones del documento, las fechas de actualización, los apartados modificados y las personas responsables. Se completará a medida que se incorporen y revisen los contenidos.</div></section><section class="page" id="objetivo"><div class="chapter">02 / DOCUMENTACIÓN TÉCNICA</div><h2>Objetivo y visión general</h2><p class="desc">Propósito del sistema y descripción general de su funcionamiento.</p><div class="prose">El objetivo del Equipo G4 es medir distintas condiciones ambientales y detectar presencia en un espacio interior, centralizando la información para que pueda consultarse desde una interfaz web. Para ello, el equipo integró sensores con un ESP32-C3, desarrolló el firmware de lectura y publicación, y conectó el dispositivo con un broker MQTT y un dashboard.<br/><br/>El sistema publica siete variables: temperatura, humedad, iluminación, ruido, gases, presencia y confort. La información se actualiza en el dashboard y puede observarse mediante tarjetas, gráficos y exportación de registros CSV.</div></section><section class="page" id="problema"><div class="chapter">03 / DOCUMENTACIÓN TÉCNICA</div><h2>Problema a resolver</h2><p class="desc">Contexto que dio origen al desarrollo del nodo.</p><div class="prose">En los espacios escolares, las condiciones ambientales pueden cambiar durante la jornada y no siempre se cuenta con información centralizada para observarlas. El proyecto busca construir una herramienta que permita registrar variables del ambiente y detectar presencia, ofreciendo una referencia visual para interpretar las condiciones del espacio.<br/><br/>El alcance del sistema es de monitoreo: las mediciones permiten observar tendencias y estados, pero no constituyen por sí mismas una certificación de calidad ambiental ni reemplazan instrumentos profesionales.</div></section><section class="page" id="alcances"><div class="chapter">04 / DOCUMENTACIÓN TÉCNICA</div><h2>Alcances</h2><p class="desc">Funciones contempladas y límites conocidos del desarrollo.</p><div class="prose">El nodo mide temperatura, humedad, iluminación, ruido, gases y presencia. El ESP32-C3 procesa las lecturas y publica los valores mediante MQTT. El dashboard permite consultar los datos, visualizar gráficos, identificar el estado de conexión y exportar registros CSV.<br/><br/>El indicador de confort se calcula a partir de variables ambientales. La lectura del MQ-135 se presenta como un valor estimado por el programa y no como una medición certificada de concentración de contaminantes. La calibración del micrófono y algunas verificaciones de hardware quedan sujetas a las pruebas finales.</div></section><section class="page" id="equipo"><div class="chapter">05 / DOCUMENTACIÓN TÉCNICA</div><h2>Equipo e integrantes</h2><p class="desc">Organización del trabajo y responsabilidades del Equipo G4.</p>
+<div class="prose">El proyecto fue desarrollado por cinco integrantes. Las responsabilidades se distribuyeron entre coordinación, electrónica y hardware, documentación, programación y redes, y desarrollo de la interfaz web. Aunque cada integrante tuvo un área principal, hubo colaboración entre roles cuando las tareas lo requirieron.</div>
+<div class="cards">
+<div class="card"><h3>Román Manzo</h3><p><b>Project Manager.</b> Coordinación general y colaboración en hardware, programación y documentación.</p></div>
+<div class="card"><h3>Fidel Gavazza</h3><p><b>Hardware y electrónica.</b> Circuito, conexiones, soldadura, planos y caja.</p></div>
+<div class="card"><h3>Benjamín Álvarez</h3><p><b>Documentación.</b> Organización documental, Carta Gantt y apoyo en el diseño físico.</p></div>
+<div class="card"><h3>Tiziano Tagliaferro</h3><p><b>Programación y redes.</b> Firmware del ESP32-C3, MQTT y colaboración técnica.</p></div>
+<div class="card"><h3>Joaquín Surra</h3><p><b>Dashboard.</b> Diseño visual e interfaz web y funciones de comunicación MQTT.</p></div>
+</div>
+</section><section class="page" id="asignaturas"><div class="chapter">06 / DOCUMENTACIÓN TÉCNICA</div><h2>Asignaturas involucradas</h2><p class="desc">Aportes de los espacios curriculares al desarrollo del proyecto.</p><div class="prose"><strong>Laboratorio de Hardware:</strong> diseño y armado del circuito, soldadura, integración de sensores y montaje en la caja.<br/><br/><strong>Programación:</strong> desarrollo y corrección del firmware del ESP32-C3.<br/><br/><strong>Aplicaciones:</strong> diseño y desarrollo del dashboard.<br/><br/><strong>Sistemas Operativos:</strong> comunicación entre el nodo y el broker mediante MQTT.<br/><br/><strong>Seguridad Informática:</strong> organización, planificación, seguimiento de tareas y documentación.<br/><br/><strong>Investigación Operativa:</strong> preparación y práctica de la presentación.</div></section><section class="page" id="scrum"><div class="chapter">07 / DOCUMENTACIÓN TÉCNICA</div><h2>Planificación y Scrum</h2><p class="desc">Organización del equipo, distribución de tareas y seguimiento.</p><div class="prose">La planificación general comenzó durante el primer semestre, cuando se realizaron talleres para trabajar con los contenidos y componentes que después se utilizarían en los proyectos. Luego del receso invernal, el tiempo de los talleres se destinó al desarrollo de los nodos asignados a cada grupo.<br/><br/>En el Equipo G4 se definieron responsabilidades y se utilizó una carta Gantt compartida para registrar tareas, fechas y avances. La organización cotidiana fue flexible y, en varias ocasiones, las actividades se resolvieron sobre la marcha. Por eso, el seguimiento no funcionó como una aplicación estricta de Scrum con reuniones y ciclos diarios formalizados.</div></section><section class="page" id="gantt"><div class="chapter">08 / DOCUMENTACIÓN TÉCNICA</div><h2>Carta Gantt</h2><p class="desc">Cronograma de actividades, responsables y avances.</p><div class="prose">La carta Gantt reúne las tareas previstas y realizadas durante el desarrollo. Permite observar la secuencia de trabajo, los períodos de ejecución, las personas responsables y el avance registrado. La versión final de este apartado incorporará la visualización del cronograma y una tabla detallada de actividades.</div><div class="placeholder"><b>PENDIENTE: integrar la carta Gantt definitiva y revisar inconsistencias de carga.</b></div>
+<div class="feature-kicker">HITOS DESTACADOS DEL DESARROLLO</div>
+<div class="timeline">
+<div class="milestone"><time>24 ABRIL 2026</time><b>Conformación de equipos</b><p>Definición de los grupos de trabajo.</p></div>
+<div class="milestone"><time>MAYO – JUNIO 2026</time><b>Talleres y exploración de sensores</b><p>Aprendizaje y pruebas de componentes.</p></div>
+<div class="milestone"><time>JUNIO – AGOSTO 2026</time><b>Roles, compras e integración inicial</b><p>Organización del equipo y primeras pruebas conjuntas.</p></div>
+<div class="milestone"><time>AGOSTO – OCTUBRE 2026</time><b>Diseño físico y desarrollo del dashboard</b><p>Construcción del nodo y programación de la interfaz.</p></div>
+<div class="milestone"><time>OCTUBRE – NOVIEMBRE 2026</time><b>Integración MQTT y cierre técnico</b><p>Correcciones, montaje y pruebas finales.</p></div>
+</div></section><section class="page" id="hitos"><div class="chapter">09 / DOCUMENTACIÓN TÉCNICA</div><h2>Entregables e hitos</h2><p class="desc">Principales resultados parciales y entregas del desarrollo.</p><div class="prose">Entre los hitos del proyecto se encuentran la asignación del nodo al grupo, las pruebas individuales de sensores, la integración inicial sobre protoboard, el diseño del cableado, la construcción de la placa perforada, el montaje en la caja, la programación del ESP32-C3, la comunicación MQTT y el desarrollo del dashboard.<br/><br/>Las fechas y el estado final de cada hito se consolidarán a partir de la carta Gantt y de la bitácora.</div></section><section class="page" id="arquitectura"><div class="chapter">10 / DOCUMENTACIÓN TÉCNICA</div><h2>Arquitectura del sistema</h2><p class="desc">Relación entre sensores, microcontrolador, red, broker y dashboard.</p><div class="prose">La arquitectura del Equipo G4 se organiza en cuatro etapas. Primero, los sensores capturan variables del entorno. Luego, el ESP32-C3 obtiene y procesa las lecturas mediante el firmware. En tercer lugar, el dispositivo utiliza la conexión Wi-Fi para publicar los valores en un broker MQTT del servidor escolar. Por último, el dashboard se suscribe a los tópicos correspondientes y presenta la información al usuario.<br/><br/>El nodo publica siete tópicos independientes bajo la estructura <strong>6to_info/A/G4/</strong>: temperatura, humedad, luz, ruido, gases, presencia y confort.</div>
+<div class="feature-kicker">RECORRIDO DE LA INFORMACIÓN</div>
+<div class="arch-flow">
+<div class="arch-node"><span class="arch-icon">⌁</span><b>Sensores</b><small>Captura de variables</small></div>
+<div class="arch-node"><span class="arch-icon">▣</span><b>ESP32-C3</b><small>Lectura y procesamiento</small></div>
+<div class="arch-node"><span class="arch-icon">⌁</span><b>Wi-Fi</b><small>Conexión de red</small></div>
+<div class="arch-node"><span class="arch-icon">⇄</span><b>Broker MQTT</b><small>Distribución de mensajes</small></div>
+<div class="arch-node"><span class="arch-icon">▤</span><b>Dashboard</b><small>Visualización de datos</small></div>
+</div>
+<div class="feature-kicker">TÓPICOS PUBLICADOS POR EL NODO</div>
+<div class="topic-list"><span class="topic">temperatura</span><span class="topic">humedad</span><span class="topic">luz</span><span class="topic">ruido</span><span class="topic">gases</span><span class="topic">presencia</span><span class="topic">confort</span></div>
+</section><section class="page" id="plano"><div class="chapter">11 / DOCUMENTACIÓN TÉCNICA</div><h2>Plano de diseño</h2><p class="desc">Distribución física de componentes y conexiones del nodo.</p><div class="prose">Este apartado documentará la distribución de los sensores, la placa perforada, el regulador y la batería dentro de la caja. También se incluirá el esquema de conexiones eléctricas y la identificación de los pines utilizados por el ESP32-C3.<br/><br/>El plano se presentará como referencia del montaje construido. Las conexiones y los detalles de alimentación deberán cotejarse con el circuito físico antes de publicar la versión definitiva.</div><div class="placeholder"><b>PENDIENTE: incorporar plano final y fotografías del interior.</b></div>
+<div class="feature-kicker">REGISTRO FOTOGRÁFICO DEL MONTAJE</div>
+<div class="gallery-grid">
+<div class="gallery-slot"><span class="plus">＋</span><b>Vista exterior del nodo</b><small>Fotografía del equipo terminado · pendiente de sesión fotográfica</small></div>
+<div class="gallery-slot"><span class="plus">＋</span><b>Interior de la caja</b><small>Distribución de batería, regulador y placa · pendiente</small></div>
+<div class="gallery-slot"><span class="plus">＋</span><b>Placa perforada</b><small>Detalle de soldaduras y conexiones · pendiente</small></div>
+<div class="gallery-slot"><span class="plus">＋</span><b>Nodo en funcionamiento</b><small>Fotografía con el sistema encendido · pendiente</small></div>
+</div>
+<section aria-label="Registro fotográfico del nodo" class="project-photo-gallery">
+<div class="section-kicker">REGISTRO REAL · EQUIPO G4</div>
+<h3>El nodo, en construcción y terminado</h3>
+<p>Fotografías originales del montaje: caja, distribución interna, placa perforada, cableado, sensores y vista exterior. Las imágenes documentan el estado real del prototipo.</p>
+<div class="photo-grid">
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_01.jpeg" rel="noopener" target="_blank">
+<img alt="Vista exterior de la caja" loading="lazy" src="assets/fotos/proyecto_01.jpeg"/>
+</a>
+<figcaption>Vista exterior de la caja</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_02.jpeg" rel="noopener" target="_blank">
+<img alt="LCD instalado en la tapa" loading="lazy" src="assets/fotos/proyecto_02.jpeg"/>
+</a>
+<figcaption>LCD instalado en la tapa</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_03.jpeg" rel="noopener" target="_blank">
+<img alt="Caja abierta y montaje interno" loading="lazy" src="assets/fotos/proyecto_03.jpeg"/>
+</a>
+<figcaption>Caja abierta y montaje interno</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_04.jpeg" rel="noopener" target="_blank">
+<img alt="Distribución de componentes" loading="lazy" src="assets/fotos/proyecto_04.jpeg"/>
+</a>
+<figcaption>Distribución de componentes</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_05.jpeg" rel="noopener" target="_blank">
+<img alt="Cableado y sensores" loading="lazy" src="assets/fotos/proyecto_05.jpeg"/>
+</a>
+<figcaption>Cableado y sensores</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_06.jpeg" rel="noopener" target="_blank">
+<img alt="Vista general del interior" loading="lazy" src="assets/fotos/proyecto_06.jpeg"/>
+</a>
+<figcaption>Vista general del interior</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_07.jpeg" rel="noopener" target="_blank">
+<img alt="Placa y conexiones" loading="lazy" src="assets/fotos/proyecto_07.jpeg"/>
+</a>
+<figcaption>Placa y conexiones</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_08.jpeg" rel="noopener" target="_blank">
+<img alt="Placa perforada soldada" loading="lazy" src="assets/fotos/proyecto_08.jpeg"/>
+</a>
+<figcaption>Placa perforada soldada</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_09.jpeg" rel="noopener" target="_blank">
+<img alt="Frente del nodo" loading="lazy" src="assets/fotos/proyecto_09.jpeg"/>
+</a>
+<figcaption>Frente del nodo</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_10.jpeg" rel="noopener" target="_blank">
+<img alt="Detalle de conexiones" loading="lazy" src="assets/fotos/proyecto_10.jpeg"/>
+</a>
+<figcaption>Detalle de conexiones</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_11.jpeg" rel="noopener" target="_blank">
+<img alt="Vista lateral de la caja" loading="lazy" src="assets/fotos/proyecto_11.jpeg"/>
+</a>
+<figcaption>Vista lateral de la caja</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_12.jpeg" rel="noopener" target="_blank">
+<img alt="Montaje interno completo" loading="lazy" src="assets/fotos/proyecto_12.jpeg"/>
+</a>
+<figcaption>Montaje interno completo</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_13.jpeg" rel="noopener" target="_blank">
+<img alt="Caja abierta: disposición general" loading="lazy" src="assets/fotos/proyecto_13.jpeg"/>
+</a>
+<figcaption>Caja abierta: disposición general</figcaption>
+</figure>
+<figure class="project-photo">
+<a href="assets/fotos/proyecto_14.jpeg" rel="noopener" target="_blank">
+<img alt="Detalle de la placa" loading="lazy" src="assets/fotos/proyecto_14.jpeg"/>
+</a>
+<figcaption>Detalle de la placa</figcaption>
+</figure>
+</div>
+</section>
+</section><section class="page" id="componentes"><div class="chapter">12 / DOCUMENTACIÓN TÉCNICA</div><h2>Componentes</h2><p class="desc">Elementos electrónicos que forman parte del Equipo G4.</p><div class="prose">El nodo utiliza un ESP32-C3 Super Mini como unidad de procesamiento. Para las mediciones incorpora un DHT22 (temperatura y humedad), un BH1750 (iluminación), un MQ-135 (respuesta a gases), un micrófono INMP441 (captura de sonido) y un sensor PIR HC-SR501 (detección de movimiento). También incluye una pantalla LCD 16×2 con interfaz I²C, una batería de 12 V y un regulador LM7805 para obtener una línea de alimentación de 5 V.<br/><br/>Las características, conexiones, alimentación y función de cada componente se desarrollarán en fichas técnicas individuales. Los valores estimados por el MQ-135 y la calibración del INMP441 se describirán con sus limitaciones.<p><b>Alimentación:</b> batería Vision de 12 V y 5 Ah, recibida sin costo, junto con un regulador LM7805 proporcionado al equipo.</p></div>
+<div class="feature-kicker">INVENTARIO DEL NODO · 07 ELEMENTOS DE MEDICIÓN / CONTROL</div>
+<div class="sensor-grid">
+<div class="sensor-card"><div class="sensor-symbol">°C</div><h3>DHT22</h3><p>Temperatura y humedad relativa del ambiente.</p><div class="sensor-meta">GPIO 10 · DATA · 3,3 V</div></div>
+<div class="sensor-card"><div class="sensor-symbol">LX</div><h3>BH1750</h3><p>Medición de iluminación en lux mediante I²C.</p><div class="sensor-meta">GPIO 8 / 9 · I²C</div></div>
+<div class="sensor-card"><div class="sensor-symbol">GAS</div><h3>MQ-135</h3><p>Respuesta del sensor a gases; el valor ppm mostrado es estimado por el programa.</p><div class="sensor-meta">GPIO 0 · AO / GPIO 7 · DO</div></div>
+<div class="sensor-card"><div class="sensor-symbol">dB</div><h3>INMP441</h3><p>Micrófono digital I²S. La calibración acústica final debe verificarse.</p><div class="sensor-meta">GPIO 4 / 5 / 6 · I²S</div></div>
+<div class="sensor-card"><div class="sensor-symbol">PIR</div><h3>HC-SR501</h3><p>Detección de movimiento y presencia.</p><div class="sensor-meta">GPIO 3 · OUT</div></div>
+<div class="sensor-card"><div class="sensor-symbol">LCD</div><h3>LCD 16×2 I²C</h3><p>Pantalla local. El contenido definitivo mostrado queda pendiente de revisar.</p><div class="sensor-meta">GPIO 8 / 9 · I²C</div></div>
+</div>
+<div class="notice">La asignación de pines se basa en el relevamiento disponible y debe cotejarse con el cableado físico antes de publicar el plano definitivo.</div>
+<div class="info-card" id="pinout-confirmado" style="margin-top:22px">
+<h3>Asignación de conexiones documentada</h3>
+<p>La asignación se transcribe de los apuntes y planos de conexión del equipo:</p>
+<ul>
+<li><strong>MQ-135:</strong> AO → GPIO 0; DO → GPIO 7; alimentación de 5 V y GND desde la línea regulada.</li>
+<li><strong>PIR HC-SR501:</strong> señal → GPIO 3; alimentación de 5 V y GND.</li>
+<li><strong>LCD I²C:</strong> SDA → GPIO 8; SCL → GPIO 9; alimentación de 5 V y GND.</li>
+<li><strong>DHT22:</strong> señal → GPIO 10; alimentación de 3,3 V y GND.</li>
+<li><strong>BH1750:</strong> SDA → GPIO 8; SCL → GPIO 9; alimentación de 3,3 V y GND; ADDR a GND.</li>
+<li><strong>INMP441:</strong> SCK → GPIO 4; WS → GPIO 5; SD → GPIO 6; L/R a GND; alimentación de 3,3 V y GND.</li>
+</ul>
+<p class="muted">Los apuntes indican estas conexiones. La distribución final debe contrastarse con la placa física antes de intervenir el circuito.</p>
+</div>
+</section><section class="page" id="aplicacion"><div class="chapter">13 / DOCUMENTACIÓN TÉCNICA</div><h2>Diseño de la aplicación</h2><p class="desc">Interfaz web para consultar, analizar y exportar los datos del nodo.</p>
+<div class="prose">El dashboard es una aplicación web adaptable a computadoras y celulares, desarrollada con HTML, CSS y JavaScript. Presenta las variables ambientales medidas por el nodo y el índice de confort.</div>
+<h3>Perfiles de acceso</h3><ul><li><b>Invitado:</b> puede consultar las funciones de visualización y utilizar la exportación CSV con datos de simulación.</li><li><b>Administrador:</b> dispone de la función adicional de alternar entre el modo de simulación y el modo real mediante MQTT. Puede exportar los datos correspondientes al modo seleccionado.</li></ul>
+<h3>Visualización y análisis</h3><p>Las tarjetas principales muestran temperatura, humedad, iluminación, ruido, gases, presencia e índice de confort. Los gráficos permiten observar la evolución de las variables a lo largo del tiempo.</p>
+<p>El índice de confort se calcula en el ESP32-C3 mediante un contador de puntos y se representa con colores: verde para un estado favorable, amarillo para uno intermedio y rojo para uno desfavorable. La fórmula y los umbrales exactos no están documentados en esta versión.</p>
+<h3>Exportación CSV</h3><p>El archivo exportado puede incluir fecha y hora, temperatura, humedad, luz, ruido, gas, presencia y confort.</p>
+<h3>Integrantes y modelo 3D</h3><p>El apartado de integrantes presenta fotografías, nombres, roles, tareas realizadas y correos electrónicos. El dashboard incorpora un modelo tridimensional del nodo.</p>
+<h3>Conectividad y publicación</h3><p>En modo real, el dashboard recibe datos mediante MQTT. Si se pierde la conexión, intenta reconectarse. La aplicación está alojada en GitHub Pages.</p>
+<a class="btn" href="https://rmanzoschi.github.io/NodoIoT_G4-IA_ConfortPresencia/dashboard/" rel="noopener" target="_blank">Abrir dashboard ↗</a>
+</section><section class="page" id="presupuesto"><div class="chapter">14 / DOCUMENTACIÓN TÉCNICA</div><h2>Presupuesto y BOM</h2><p class="desc">Materiales adquiridos, repuestos y costo total del desarrollo.</p>
+<div class="prose">El presupuesto contempla todos los gastos realizados por el Equipo G4, incluidos los repuestos y el envío. Los importes están expresados en pesos argentinos.</div>
+<div class="table-wrap"><table><thead><tr><th>Material</th><th>Cantidad</th><th>Importe total</th></tr></thead><tbody>
+<tr><td>Estaño 40 g</td><td>1</td><td>$9.450,00</td></tr><tr><td>INMP441</td><td>1</td><td>$9.999,00</td></tr><tr><td>Placa experimental</td><td>1</td><td>$4.600,00</td></tr><tr><td>BH1750 (incluye reemplazos)</td><td>3</td><td>$14.340,00</td></tr><tr><td>LED</td><td>1</td><td>$1.613,00</td></tr><tr><td>MQ-135</td><td>1</td><td>$4.632,00</td></tr><tr><td>Pack de 5 borneras</td><td>1</td><td>$6.237,70</td></tr><tr><td>HC-SR501</td><td>1</td><td>$5.719,00</td></tr><tr><td>Step-down</td><td>1</td><td>$3.399,00</td></tr><tr><td>DHT22</td><td>1</td><td>$11.052,00</td></tr><tr><td>ESP32-C3 Mini</td><td>1</td><td>$7.999,00</td></tr><tr><td>LCD 16×2</td><td>1</td><td>$4.100,00</td></tr><tr><td>Módulo display</td><td>1</td><td>$3.010,00</td></tr><tr><td>Envío</td><td>—</td><td>$6.490,00</td></tr><tr><td>Cable USB</td><td>1</td><td>$6.000,00</td></tr><tr><td>Pines hembra</td><td>2</td><td>$4.000,00</td></tr><tr><td>Pines macho</td><td>1</td><td>$2.000,00</td></tr><tr><td>Termocontraíble</td><td>1</td><td>$2.500,00</td></tr><tr><td>Cables Arduino ×15</td><td>1</td><td>$3.500,00</td></tr>
+</tbody></table></div>
+<div class="cards"><div class="card"><div class="ey">INVERSIÓN TOTAL</div><h3>$110.640,70</h3><p>Gasto total registrado, incluidos repuestos y envío.</p></div><div class="card"><div class="ey">COSTO PROMEDIO POR INTEGRANTE</div><h3>$22.128,14</h3><p>División matemática del total entre cinco integrantes; no implica que cada uno haya aportado exactamente ese importe.</p></div></div>
+<h3>Materiales recibidos</h3><p>La batería Vision de 12 V y 5 Ah, el regulador LM7805 y la caja plástica de 21 × 21 cm fueron entregados al equipo sin costo y, por eso, no se incluyen en el desembolso total.</p>
+</section><section class="page" id="pruebas"><div class="chapter">15 / DOCUMENTACIÓN TÉCNICA</div><h2>Bitácora de pruebas</h2><p class="desc">Ensayos individuales, integración, fallas detectadas y soluciones.</p>
+<p>Primero se probaron los sensores por separado y luego se integraron al circuito. Se verificó el funcionamiento del LCD, el procesamiento del ESP32-C3, la publicación MQTT, la recepción en el dashboard y la actualización de datos cada 10 segundos.</p>
+<div class="table-wrap"><table><thead><tr><th>Elemento / prueba</th><th>Resultado informado</th></tr></thead><tbody>
+<tr><td>DHT22, BH1750, MQ-135, INMP441 y HC-SR501</td><td>Pruebas individuales realizadas; funcionamiento confirmado.</td></tr><tr><td>LCD 16×2</td><td>Visualiza mediciones e índice de confort.</td></tr><tr><td>ESP32-C3 y MQTT</td><td>Publicación de variables confirmada.</td></tr><tr><td>Dashboard</td><td>Recepción y visualización confirmadas.</td></tr><tr><td>Actualización</td><td>Intervalo de 10 segundos comprobado.</td></tr><tr><td>Integración final</td><td>El nodo completo funcionó con todos los sensores conectados.</td></tr></tbody></table></div>
+<h3>Problemas y soluciones</h3><ul>
+<li><b>Antena Wi-Fi:</b> la antena inicial tenía poca recepción. Se reemplazó por otra de mayor rendimiento y luego por una de mayor tamaño al detectar interferencias con la protoboard.</li>
+<li><b>BH1750:</b> fue necesario reemplazar el sensor; el presupuesto registra tres unidades compradas en total.</li>
+<li><b>Alimentación:</b> el módulo Step-down se dañó y entregó 5 V por el canal destinado a 3,3 V. Se reemplazó por otro regulador proporcionado al equipo.</li>
+<li><b>INMP441:</b> necesitó calibración para ajustar su funcionamiento.</li>
+<li><b>Programación:</b> el desarrollo se realizó mediante prueba y error con asistencia de IA; algunas modificaciones generaron errores que debieron revisarse y corregirse.</li></ul>
+<h3>Pruebas pendientes de cuantificación</h3><p>No se registró la duración exacta de una prueba continua ni se midió formalmente la autonomía de la batería Vision de 12 V y 5 Ah. Por lo tanto, no se informa un tiempo de funcionamiento estimado como si hubiera sido comprobado.</p>
+</section><section class="page" id="resultados"><div class="chapter">16 / DOCUMENTACIÓN TÉCNICA</div><h2>Resultados y mejoras</h2><p class="desc">Evaluación del resultado alcanzado, aprendizajes y posibles ampliaciones.</p>
+<p>El Equipo G4 considera que cumplió el objetivo inicial: desarrollar un dispositivo capaz de medir variables ambientales en el ámbito escolar, procesarlas y transmitirlas mediante MQTT para su visualización en un dashboard.</p>
+<p>Se logró integrar los sensores, el ESP32-C3, la pantalla LCD, la conexión Wi-Fi, la comunicación MQTT y la aplicación web. El equipo destaca especialmente la prolijidad del armado y de la presentación general del proyecto.</p>
+<h3>Dificultades</h3><p>La mayor dificultad estuvo en la programación, que requirió pruebas, correcciones y modificaciones. También se resolvieron inconvenientes de recepción Wi-Fi, reemplazos de sensores y fallas en la alimentación.</p>
+<h3>Limitación actual</h3><p>La principal limitación identificada es la duración de la batería. No se realizó una medición formal de autonomía.</p>
+<h3>Mejoras propuestas</h3><ul><li>Incorporar un testigo luminoso para indicar visualmente el estado del dispositivo.</li><li>Mejorar la autonomía de alimentación.</li><li>Agregar un cooler interno.</li><li>Incorporar actuadores para ampliar el sistema más allá de la medición y transmisión de datos.</li></ul>
+<h3>Aprendizajes y conclusión</h3><p>El proyecto permitió aprender a trabajar mejor en equipo, organizarse para una tarea de largo plazo y recuperarse después de momentos de frustración. El equipo lo considera un muy buen proyecto, de dificultad media, con aplicaciones interesantes para desarrollos futuros.</p>
+</section><section class="page" id="guia"><div class="chapter">17 / DOCUMENTACIÓN TÉCNICA</div><h2>Guía de uso del nodo</h2><p class="desc">Encendido, consulta de información y cuidados básicos.</p>
+<h3>Encendido y funcionamiento</h3><p>El nodo se alimenta mediante una batería Vision de 12 V y 5 Ah. Al encenderse, el ESP32-C3 inicia el sistema, se conecta a la red Wi-Fi configurada e intenta publicar las mediciones mediante MQTT. Para apagarlo, se desconecta la alimentación.</p>
+<h3>Consulta del dashboard</h3><p>El dashboard está publicado en GitHub Pages. El perfil invitado permite consultar la demostración con datos simulados. El administrador puede alternar entre simulación y recepción de datos reales por MQTT. Las mediciones se presentan en tarjetas y gráficos; la actualización del modo real se realiza cada 10 segundos.</p>
+<h3>Interpretación de indicadores</h3><p>El índice de confort se representa mediante colores: verde (favorable), amarillo (intermedio) y rojo (desfavorable). El panel también informa el estado de la conexión de red y MQTT.</p>
+<h3>Exportación</h3><p>La exportación CSV incluye fecha y hora, temperatura, humedad, luz, ruido, gas, presencia y confort. El invitado exporta datos de simulación; el administrador exporta los datos del modo seleccionado.</p>
+<h3>Cuidados</h3><p>Antes de abrir la caja, desconectar la batería. Retirar los tornillos de la tapa frontal para acceder al interior. Evitar golpes, agua, tirones de cables y manipulación del circuito energizado. Mantener despejadas las aberturas de los sensores.</p>
+</section><section class="page" id="ayuda"><div class="chapter">INFO / DOCUMENTACIÓN TÉCNICA</div><h2>Cómo usar esta documentación</h2><p class="desc">Guía para recorrer los capítulos e interpretar los recursos técnicos.</p>
+<p>La documentación está organizada para acompañar el desarrollo del proyecto desde su idea inicial hasta la evaluación final. El menú lateral permite abrir cada apartado de forma independiente. Los controles de navegación al pie de las páginas permiten avanzar o retroceder entre subsecciones.</p>
+<h3>Recorrido recomendado</h3><ol><li><b>Presentación:</b> conocer el propósito, el problema, los alcances y el equipo.</li><li><b>Planificación:</b> consultar la organización del trabajo, la Carta Gantt y los hitos.</li><li><b>Diseño técnico:</b> comprender la arquitectura, el plano, los componentes y el dashboard.</li><li><b>Seguimiento:</b> revisar costos, pruebas, resultados y mejoras.</li><li><b>Guía de uso:</b> consultar el funcionamiento y los cuidados del nodo.</li></ol>
+<h3>Cómo interpretar los recursos</h3><ul><li><b>Diagramas:</b> muestran relaciones entre componentes y recorridos de información; las flechas indican dirección del flujo.</li><li><b>Planos y esquemas:</b> ayudan a reconocer la distribución física y las conexiones eléctricas.</li><li><b>Fotografías:</b> documentan el dispositivo y las etapas reales de construcción.</li><li><b>Tablas:</b> organizan cantidades, costos, características y resultados.</li><li><b>Carta Gantt:</b> representa las tareas y etapas en el tiempo.</li><li><b>Modelo 3D:</b> facilita la exploración visual de la estructura del nodo.</li></ul>
+<h3>Recursos complementarios</h3><p>El dashboard permite consultar las mediciones; el modelo tridimensional representa el dispositivo; la galería reúne imágenes del desarrollo y el glosario explica términos técnicos utilizados en el documento.</p>
+<p>Se recomienda comenzar por Presentación y continuar en orden. Si se busca un dato puntual, se puede utilizar el menú lateral o la búsqueda de la documentación. Los datos no comprobados se identifican como pendientes y no deben interpretarse como resultados confirmados.</p>
+</section><section class="page" id="glosario"><div class="chapter">ANEXO TÉCNICO</div><h2>Glosario técnico</h2><p class="desc">Conceptos y siglas que aparecen a lo largo de la documentación.</p><div class="glossary">
+<div class="glossary-item"><b>ESP32-C3</b><p>Microcontrolador utilizado como unidad central del nodo.</p></div>
+<div class="glossary-item"><b>GPIO</b><p>Terminal de entrada/salida de propósito general del microcontrolador.</p></div>
+<div class="glossary-item"><b>MQTT</b><p>Protocolo ligero de mensajería basado en publicación y suscripción.</p></div>
+<div class="glossary-item"><b>Broker</b><p>Servidor que recibe mensajes publicados y los distribuye a sus suscriptores.</p></div>
+<div class="glossary-item"><b>I²C</b><p>Bus de comunicación serial que utiliza líneas SDA y SCL.</p></div>
+<div class="glossary-item"><b>I²S</b><p>Interfaz serial utilizada para transmitir datos digitales de audio.</p></div>
+<div class="glossary-item"><b>ADC</b><p>Conversor analógico-digital que transforma una señal analógica en un valor digital.</p></div>
+<div class="glossary-item"><b>RMS</b><p>Valor eficaz de una señal; puede utilizarse para caracterizar la amplitud de audio.</p></div>
+<div class="glossary-item"><b>CSV</b><p>Formato de archivo tabular que separa los valores mediante delimitadores.</p></div>
+<div class="glossary-item"><b>Firmware</b><p>Programa que se ejecuta directamente en el microcontrolador.</p></div>
+<div class="glossary-item"><b>Dashboard</b><p>Interfaz visual que reúne indicadores, gráficos y datos del sistema.</p></div>
+<div class="glossary-item"><b>BOM</b><p>Bill of Materials: lista estructurada de materiales y componentes.</p></div>
+</div></section><section class="page" id="exploracion3d">
+<div class="chapter">MODELO INTERACTIVO</div><h2>Exploración 3D del Equipo G4</h2>
+<p class="desc">Explorá el diseño físico del nodo, identificá sus sensores y consultá valores simulados o datos reales cuando estén disponibles.</p>
+<div style="height:660px;min-height:520px;border:1px solid rgba(217,173,82,.35);border-radius:16px;overflow:hidden;background:#0d0d10;margin:28px 0;box-shadow:0 20px 50px #0006">
+<iframe allow="fullscreen" loading="lazy" src="visor3d/visor_caja3d.html" style="width:100%;height:100%;border:0" title="Visor 3D interactivo del Nodo G4"></iframe>
+</div>
+<div class="cards">
+<div class="card"><div class="ey">MODO SIMULACIÓN</div><h3>Exploración sin el nodo conectado</h3><p>El visor genera valores de ejemplo para que se puedan probar las etiquetas y la selección de sensores.</p></div>
+<div class="card"><div class="ey">MODO EN VIVO</div><h3>Datos reales del nodo</h3><p>El visor dispone de una API para recibir las mediciones reales. La conexión automática con el dashboard o MQTT requiere configurar el puente de datos.</p></div>
+</div>
+<div class="notice">Los valores simulados son ilustrativos y no representan mediciones reales. El modo en vivo solo debe considerarse activo cuando el visor recibe datos del nodo.</div>
+</section><div class="pager"><button class="btn" id="prev"><small>← ANTERIOR</small><b id="prevName">Portada</b></button><button class="btn" id="next"><small>SIGUIENTE →</small><b id="nextName">Objetivo y visión general</b></button></div><div class="foot"><span>SMART CAMPUS IoT · Equipo G4</span><span>INSTITUTO LEONARDO MURIALDO · 2026</span></div></div></main>
+<script>
+const ids=['portada','proyecto','cambios','objetivo','problema','alcances','equipo','asignaturas','scrum','gantt','hitos','arquitectura','plano','componentes','aplicacion','presupuesto','pruebas','resultados','guia','ayuda','glosario','exploracion3d'];
+const labels={portada:'Portada',proyecto:'Ver el proyecto',cambios:'Control de cambios',objetivo:'Objetivo y visión general',problema:'Problema a resolver',alcances:'Alcances',equipo:'Equipo e integrantes',asignaturas:'Asignaturas involucradas',scrum:'Planificación y Scrum',gantt:'Carta Gantt',hitos:'Entregables e hitos',arquitectura:'Arquitectura del sistema',plano:'Plano de diseño',componentes:'Componentes',aplicacion:'Diseño de la aplicación',presupuesto:'Presupuesto y BOM',pruebas:'Bitácora de pruebas',resultados:'Resultados y mejoras',guia:'Guía de uso del nodo',ayuda:'Cómo usar esta documentación',glosario:'Glosario técnico',exploracion3d:'Exploración 3D del nodo'};
+let current='portada';
+function show(id){
+ if(!ids.includes(id))return; current=id;
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+ document.querySelectorAll('[data-id]').forEach(b=>b.classList.toggle('active',b.dataset.id===id));
+ const active=document.querySelector(`[data-id="${id}"]`); if(active){const group=active.closest('.group');document.querySelectorAll('.group').forEach(g=>{if(g!==group)g.classList.remove('open');});group.classList.add('open');group.querySelector('.group-toggle').setAttribute('aria-expanded','true');}
+ document.getElementById('crumb').textContent=labels[id].toUpperCase();
+ const i=ids.indexOf(id);document.getElementById('prevName').textContent=i?labels[ids[i-1]]:'Inicio';document.getElementById('nextName').textContent=i<ids.length-1?labels[ids[i+1]]:'Fin del documento';
+ document.getElementById('prev').disabled=i===0;document.getElementById('next').disabled=i===ids.length-1;
+ window.scrollTo({top:0,behavior:'instant'});document.getElementById('sidebar').classList.remove('mobile-open');
+}
+document.querySelectorAll('[data-id]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.id)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.go)));
+document.querySelectorAll('.group-toggle').forEach(b=>b.addEventListener('click',()=>{const group=b.closest('.group');const opening=!group.classList.contains('open');document.querySelectorAll('.group').forEach(g=>{g.classList.remove('open');g.querySelector('.group-toggle').setAttribute('aria-expanded','false')});if(opening){group.classList.add('open');b.setAttribute('aria-expanded','true')}}));
+document.getElementById('prev').onclick=()=>{let i=ids.indexOf(current);if(i>0)show(ids[i-1])};
+document.getElementById('next').onclick=()=>{let i=ids.indexOf(current);if(i<ids.length-1)show(ids[i+1])};
+document.getElementById('menu').onclick=()=>document.getElementById('sidebar').classList.toggle('mobile-open');
+document.getElementById('pdfBtn').onclick=()=>window.print();
+const navSearch=document.getElementById('navSearch');
+navSearch.addEventListener('input',()=>{
+ const q=navSearch.value.trim().toLocaleLowerCase('es');let shown=0;
+ document.querySelectorAll('.group').forEach(group=>{
+  let any=false;
+  group.querySelectorAll('[data-id]').forEach(link=>{
+   const match=!q||link.textContent.toLocaleLowerCase('es').includes(q);
+   link.style.display=match?'':'none';if(match){any=true;shown++;}
+  });
+  group.style.display=any?'':'none';
+  if(q&&any){group.classList.add('open');group.querySelector('.group-toggle').setAttribute('aria-expanded','true');}
+ });
+ document.getElementById('searchEmpty').hidden=shown!==0;
+});
+document.addEventListener('keydown',e=>{
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();navSearch.focus();}
+ if(e.key==='Escape'&&document.activeElement===navSearch){navSearch.value='';navSearch.dispatchEvent(new Event('input'));navSearch.blur();}
+ if(e.altKey&&e.key==='ArrowRight'){e.preventDefault();document.getElementById('next').click();}
+ if(e.altKey&&e.key==='ArrowLeft'){e.preventDefault();document.getElementById('prev').click();}
+});
+function updateReadProgress(){const max=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('readProgress').style.width=(max>0?Math.min(100,window.scrollY/max*100):0)+'%';}
+window.addEventListener('scroll',updateReadProgress,{passive:true});window.addEventListener('resize',updateReadProgress);
+
+function foldSidebar(){document.body.classList.add('sidebar-collapsed');}
+function unfoldSidebar(){document.body.classList.remove('sidebar-collapsed');document.getElementById('sidebar').classList.remove('mobile-open');}
+document.getElementById('fold').onclick=foldSidebar;
+document.getElementById('sidebarReopen').onclick=unfoldSidebar;
+show('portada');
+document.querySelectorAll('.group').forEach(g=>{g.classList.remove('open');g.querySelector('.group-toggle').setAttribute('aria-expanded','false')});
+</script></body></html>
