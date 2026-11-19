@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100">
+<defs>
+  <style>
+    .bg{fill:#f7f9fc}.panel{fill:#fff;stroke:#263449;stroke-width:2;rx:16}
+    .title{font:700 30px Arial;fill:#14243a}.sub{font:16px Arial;fill:#52657d}
+    .h{font:700 19px Arial;fill:#14243a}.t{font:16px Arial;fill:#24364b}
+    .small{font:14px Arial;fill:#52657d}.pin{font:700 15px Arial;fill:#14243a}
+    .power{stroke:#d97706;stroke-width:4;fill:none}.gnd{stroke:#64748b;stroke-width:3;fill:none}
+    .sig{stroke:#2563eb;stroke-width:3;fill:none}.i2c{stroke:#0f766e;stroke-width:3;fill:none}
+    .dash{stroke-dasharray:8 7}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:1.5;rx:10}
+  </style>
+</defs>
+<rect class="bg" width="1600" height="1100"/>
+<text x="60" y="58" class="title">SMART CAMPUS IoT · NODO G4</text>
+<text x="60" y="88" class="sub">Esquema funcional preliminar de conexiones · basado en el plano manuscrito de Fidel</text>
+
+<!-- Power -->
+<rect x="60" y="125" width="300" height="150" class="panel"/>
+<text x="85" y="160" class="h">Batería</text><text x="85" y="195" class="t">12 V (capacidad por confirmar)</text>
+<text x="85" y="230" class="small">Positivo y negativo</text>
+<rect x="430" y="125" width="320" height="150" class="panel"/>
+<text x="455" y="160" class="h">Regulador LM7805</text><text x="455" y="195" class="t">Entrada: 12 V</text><text x="455" y="230" class="t">Salida: 5 V</text>
+<path d="M360 185 H430" class="power"/><text x="378" y="172" class="small">12 V</text>
+<path d="M750 185 H810 V325" class="power"/><text x="765" y="172" class="small">5 V</text>
+
+<!-- ESP -->
+<rect x="610" y="350" width="380" height="490" class="panel"/>
+<text x="800" y="390" text-anchor="middle" class="h">ESP32-C3 Super Mini</text>
+<text x="800" y="418" text-anchor="middle" class="small">Placa principal · GPIO según plano</text>
+<line x1="640" y1="440" x2="960" y2="440" stroke="#d7dee8"/>
+<text x="650" y="478" class="pin">GPIO 0</text><text x="650" y="518" class="pin">GPIO 7</text>
+<text x="650" y="558" class="pin">GPIO 3</text>
+<text x="650" y="598" class="pin">GPIO 4</text><text x="650" y="638" class="pin">GPIO 5</text><text x="650" y="678" class="pin">GPIO 6</text>
+<text x="650" y="718" class="pin">GPIO 8 · SDA</text><text x="650" y="758" class="pin">GPIO 9 · SCL</text>
+<text x="650" y="798" class="pin">GPIO 10</text>
+<text x="850" y="478" class="pin">5V · VIN</text><text x="850" y="518" class="pin">3V3</text><text x="850" y="558" class="pin">GND</text>
+<text x="850" y="598" class="small">Pines de alimentación</text>
+
+<!-- Sensors -->
+<rect x="60" y="360" width="390" height="170" class="panel"/>
+<text x="85" y="397" class="h">MQ-135 · Sensor de gases</text>
+<text x="85" y="435" class="t">AO → GPIO 0</text><text x="85" y="470" class="t">DO → GPIO 7</text>
+<text x="85" y="505" class="small">VCC: 5 V · GND: GND</text>
+<path d="M450 435 H535 V478 H610" class="sig"/><path d="M450 470 H555 V518 H610" class="sig"/>
+<path d="M810 325 H390 V505" class="power dash"/>
+
+<rect x="60" y="570" width="390" height="145" class="panel"/>
+<text x="85" y="607" class="h">HC-SR501 · PIR</text>
+<text x="85" y="645" class="t">OUT → GPIO 3</text><text x="85" y="680" class="small">VCC: 5 V · GND: GND</text>
+<path d="M450 645 H555 V558 H610" class="sig"/>
+
+<rect x="60" y="755" width="390" height="170" class="panel"/>
+<text x="85" y="792" class="h">INMP441 · Micrófono I²S</text>
+<text x="85" y="830" class="t">SCK → GPIO 4 · WS → GPIO 5</text>
+<text x="85" y="865" class="t">SD → GPIO 6</text>
+<text x="85" y="900" class="small">VDD: 3V3 · GND: GND</text>
+<path d="M450 830 H520 V598 H610" class="sig"/><path d="M450 850 H540 V638 H610" class="sig"/><path d="M450 870 H560 V678 H610" class="sig"/>
+
+<rect x="1120" y="350" width="400" height="150" class="panel"/>
+<text x="1145" y="388" class="h">DHT22 · Temperatura y humedad</text>
+<text x="1145" y="430" class="t">DATA → GPIO 10</text><text x="1145" y="468" class="small">VCC: 3V3 · GND: GND</text>
+<path d="M990 798 H1060 V430 H1120" class="sig"/>
+
+<rect x="1120" y="555" width="400" height="150" class="panel"/>
+<text x="1145" y="593" class="h">LCD 16×2 · I²C</text>
+<text x="1145" y="635" class="t">SDA → GPIO 8 · SCL → GPIO 9</text>
+<text x="1145" y="673" class="small">VCC: 5 V · GND: GND</text>
+<path d="M990 718 H1060 V635 H1120" class="i2c"/><path d="M990 758 H1080 V655 H1120" class="i2c"/>
+
+<rect x="1120" y="760" width="400" height="165" class="panel"/>
+<text x="1145" y="798" class="h">BH1750 · Sensor de luz</text>
+<text x="1145" y="838" class="t">SDA → GPIO 8 · SCL → GPIO 9</text>
+<text x="1145" y="878" class="small">Alimentación y terminal ADDR: verificar</text>
+<path d="M990 718 H1040 V838 H1120" class="i2c"/><path d="M990 758 H1020 V858 H1120" class="i2c"/>
+
+<!-- notes -->
+<rect x="500" y="900" width="540" height="125" class="warn"/>
+<text x="525" y="935" class="h">Verificaciones pendientes</text>
+<text x="525" y="968" class="small">• Confirmar distribución real de 5 V, 3V3 y GND.</text>
+<text x="525" y="994" class="small">• Confirmar pinout/ADDR del BH1750 y conexiones comunes.</text>
+<text x="60" y="1060" class="small">Colores: naranja = alimentación · azul = señales · verde = bus I²C · gris = masa (GND). No usar como guía de montaje hasta verificar el cableado final.</text>
+</svg>
