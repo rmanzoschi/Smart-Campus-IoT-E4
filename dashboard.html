@@ -2767,24 +2767,18 @@
 
             const loader = new THREE.GLTFLoader();
 
-            const b64Raw = window.CAJA_GLB_B64 || window.MODELO_GLB_BASE64 || window.MODELO_BASE64 || window.GLB_BASE64 || window.modeloBase64 || null;
-            if (b64Raw && typeof b64Raw === 'string') {
-                try {
-                    if (status3D) status3D.innerText = 'Procesando modelo 3D embebido...';
-                    const cleanB64 = b64Raw.includes(',') ? b64Raw.split(',')[1] : b64Raw;
-                    const binStr = atob(cleanB64);
-                    const len = binStr.length;
-                    const bytes = new Uint8Array(len);
-                    for (let i = 0; i < len; i++) bytes[i] = binStr.charCodeAt(i);
-                    loader.parse(bytes.buffer, '', procesarEscenaGLTF, () => {
-                        loader.load('visor3d/caja_estanca_realista.glb', procesarEscenaGLTF, actualizarProgresoCarga3D, manejarErrorCarga3D);
-                    });
-                } catch (e) {
-                    loader.load('visor3d/caja_estanca_realista.glb', procesarEscenaGLTF, actualizarProgresoCarga3D, manejarErrorCarga3D);
-                }
-            } else {
-                loader.load('visor3d/caja_estanca_realista.glb', procesarEscenaGLTF, actualizarProgresoCarga3D, manejarErrorCarga3D);
-            }
+            
+// Cargar directamente el modelo 3D definitivo
+if (status3D) {
+    status3D.innerText = 'Cargando modelo 3D final...';
+}
+
+loader.load(
+    'visor3d/caja_estanca_realista.glb',
+    procesarEscenaGLTF,
+    actualizarProgresoCarga3D,
+    manejarErrorCarga3D
+);
 
             const raycaster = new THREE.Raycaster();
             const mouse = new THREE.Vector2();
