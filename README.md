@@ -2,8 +2,22 @@
   <h1>⚡ Smart Campus IoT — Equipo G4</h1>
   <p><strong>Nodo inteligente de monitoreo ambiental, confort y presencia</strong></p>
   <p>
-    <a href="documentacion.html"><img alt="Abrir documentación" src="https://img.shields.io/badge/📘%20ABRIR-DOCUMENTACIÓN%20COMPLETA-FFC500?style=for-the-badge&labelColor=111111"></a>
-    <a href="dashboard.html"><img alt="Abrir dashboard" src="https://img.shields.io/badge/📊%20ABRIR-DASHBOARD%20IoT-10B981?style=for-the-badge&labelColor=111111"></a>
+    
+<div align="center">
+
+<h1>🚀 Smart Campus IoT – Equipo G4</h1>
+<p><strong>Nodo inteligente de monitoreo ambiental, confort y presencia</strong></p>
+
+<a href="https://rmanzoschi.github.io/Smart-Campus-IoT-E4/">
+  <img src="https://img.shields.io/badge/📘_ABRIR_DOCUMENTACIÓN-1565C0?style=for-the-badge" alt="Abrir documentación">
+</a>
+
+<a href="https://rmanzoschi.github.io/Smart-Campus-IoT-E4/dashboard.html">
+  <img src="https://img.shields.io/badge/📊_ABRIR_DASHBOARD-C9A227?style=for-the-badge" alt="Abrir dashboard">
+</a>
+
+</div>
+
   </p>
 </div>
 
