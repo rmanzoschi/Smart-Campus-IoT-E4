@@ -1,8 +1,4 @@
 <div align="center">
-  <h1>⚡ Smart Campus IoT — Equipo G4</h1>
-  <p><strong>Nodo inteligente de monitoreo ambiental, confort y presencia</strong></p>
-  <p>
-    
 <div align="center">
 
 <h1>🚀 Smart Campus IoT – Equipo G4</h1>
