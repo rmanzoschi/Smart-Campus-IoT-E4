@@ -6108,7 +6108,7 @@
           <div class="project-photo-imgwrap">
             <span class="photo-badge-num">FOTO ${item.num}</span>
             <span class="photo-badge-cat">${item.catLabel}</span>
-            <img alt="${item.alt}" data-local-photo="${item.archivo}" loading="lazy" src="${getPhotoBestSrc(item.archivo)}" style="aspect-ratio:4/3;width:100%;height:100%;object-fit:cover" onerror="resolvePhotoSrc(this, '${item.archivo}')"/>
+            <img alt="${item.alt}" data-local-photo="${item.archivo}" loading="lazy" src="${getPhotoBestSrc(item.archivo)}" style="aspect-ratio:4/3;width:100%;height:100%;object-fit:contain" onerror="resolvePhotoSrc(this, '${item.archivo}')"/>
             <span class="photo-zoom-hint">Ampliar ↗</span>
           </div>
           <figcaption>
